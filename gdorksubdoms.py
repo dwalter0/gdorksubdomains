@@ -44,7 +44,7 @@ if __name__ == "__main__":
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     
     if len(sys.argv) == 3:
-        pages = sys.argv[2]
+        pages = int(sys.argv[2])
         loops = 0
         results = pages * 10
         
