@@ -4,5 +4,7 @@ Python script that does the following search on google `sitename:<input> -www` a
 
 There will be some google links in your results that you'll need to filter out.
 
+HTTPs errors are suppressed for complications in proxying.
+
 Usage: python3 gdorksubdoms.py \<site\> \<pages of results to check\><br>
 eg. python3 gdorksubdoms.py tesla.com 4
