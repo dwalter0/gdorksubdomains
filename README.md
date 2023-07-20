@@ -9,7 +9,7 @@ eg. python3 gdorksubdoms.py tesla.com 4
 
 # gdorksubdomains-negatemode
 
-A colleague gave me the idea for this addition. Does the same thing but instead of looking through pages, adds negations of found subdomains for each subsequent search. This gets more results but I've seen the gdorksubdomains version return a very few results that negatemode doesn't for the same number of requests.
+A colleague gave me the idea for this addition. Does the same thing but instead of looking through pages, adds negations of found subdomains for each subsequent search. This gets more results and is better but I've seen the gdorksubdomains version return a very few results that negatemode doesn't for the same number of requests.
 
 Usage: python3 gdorksubdoms-negatemode.py \<site\> \<number of searches to run\><br>
 eg. python3 gdorksubdoms-negatemode.py tesla.com 4
