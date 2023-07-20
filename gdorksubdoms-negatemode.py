@@ -3,6 +3,8 @@ import requests
 import re
 from urllib.parse import urlparse
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from random import randint
+from time import sleep
 
 def make_get_request(url):
     try:
@@ -28,6 +30,13 @@ def remove_url_path(url):
     scheme = parsed_url.scheme
     netloc = parsed_url.netloc
     return f"{scheme}://{netloc}"
+    
+def get_subdomain_list(urls):
+    ret = []
+    for url in urls:
+        parsed_url = urlparse(url)
+        ret.append(parsed_url.netloc.split('.')[0])
+    return ret
 
 def go(target_url):
     # Make the GET request to the website
@@ -38,6 +47,11 @@ def go(target_url):
         results.append(remove_url_path(url))
     return results
 
+def get_negations(subdomains):
+    if len(subdomains) == 0:
+        return ""
+    else:
+        return '+-'+'+-'.join(subdomains)
 
 if __name__ == "__main__":
     
@@ -49,16 +63,20 @@ if __name__ == "__main__":
         results = pages * 10
         
         domains = []
+        subdomains = []
         
         while loops < results:
-            # Replace this URL with the website you want to access
-            target_url = f"https://www.google.com/search?q=site:{sys.argv[1]}+-www&start={loops}"       
+            negations = get_negations(subdomains)
+            target_url = f"https://www.google.com/search?q=site:{sys.argv[1]}+-www{negations}"       
             result_urls = go(target_url)
-            domains.extend(list(filter(lambda link: "google" not in link,result_urls)))
+            non_google_result_urls = list(filter(lambda link: "google" not in link,result_urls))
+            domains.extend(non_google_result_urls)
+            domains = [x for i, x in enumerate(domains) if x not in domains[:i]]
+            subdomains.extend(get_subdomain_list(domains))
+            subdomains = [x for i, x in enumerate(subdomains) if x not in subdomains[:i]]
             loops += 10
             
-        unique_list = [x for i, x in enumerate(domains) if x not in domains[:i]]
-        for item in unique_list:
+        for item in domains:
             print(item)
     
     else:
