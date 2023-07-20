@@ -15,3 +15,4 @@ Usage: python3 gdorksubdoms-negatemode.py \<site\> \<number of searches to run\>
 eg. python3 gdorksubdoms-negatemode.py tesla.com 4
 <hr>
 Note, you may get some 429 Too Many Requests responses if you choose too high a number on the end.
+This won't work if you're looking for subdomains of google because it filters out google links.
